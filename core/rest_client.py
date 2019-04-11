@@ -1,11 +1,11 @@
 import requests
-
 class RestClient():
-    def __init__(self,api_url_path):
+    def __init__(self,api_url_path,username=None,password=None,token=None,**kwargs):
         self.api_url_path = api_url_path
         self.session = requests.session()
+        self.session.auth(username,password)
 
-    def request(self,url, methd, data=None,json=None,**kwargs):
+    def request(self,url, methd,**kwargs):
         methds = ['post','get','option', 'head']
         url = self.api_url_path + url
         # if methd=='post':

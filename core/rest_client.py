@@ -1,9 +1,21 @@
 import requests
+
+
 class RestClient():
-    def __init__(self,api_url_path,username=None,password=None,token=None,**kwargs):
-        self.api_url_path = api_url_path
+    def __init__(self, api_url_path,username=None,password=None,token=None,**kwargs):
         self.session = requests.session()
-        self.session.auth(username,password)
+        if token is None:
+            if username and password:
+                self.session.auth(username, password)
+        if username is None and password is None:
+            if token:
+                s =self.session.headers["Authorization"] = "token {}".format(token)
+                print(s)
+
+        else:
+                print('输入有误')
+        self.api_url_path = api_url_path
+
 
     def request(self,url, methd,**kwargs):
         methds = ['post','get','option', 'head']
@@ -16,10 +28,10 @@ class RestClient():
             return self.session.request(methd, url, **kwargs)
 
     def get(self, url, **kwargs):
-        return self.session.request(url, 'get', **kwargs)
+        url = self.api_url_path + url
+        return self.session.request( 'get',url, **kwargs)
 
     def post(self, url, **kwargs):
+        url = self.api_url_path + url
         return self.session.request('post', url, **kwargs)
 
-r=RestClient('https://github.com/').get('')
-print(r.text)

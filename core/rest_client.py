@@ -1,8 +1,10 @@
 import requests
 
+
 class RestClient():
-    def __init__(self, api_url_path,username=None,password=None,token=None,**kwargs):
+    def __init__(self, api_url_path, username=None,password=None,token=None,**kwargs):
         self.session = requests.session()
+
         if token is None:
             if username and password:
                 self.session.auth(username, password)
@@ -24,5 +26,5 @@ class RestClient():
 
     def patch(self,url,**kwargs):
         url = self.api_url_path +url
-        return self.session.request('patch',url,**kwargs)
+        return self.session.request('patch', url, **kwargs)
 

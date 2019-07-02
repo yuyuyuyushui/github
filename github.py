@@ -9,8 +9,9 @@ class Github():
 
 
 if __name__=="__main__":
+    import json
     data = {
-        "name": "test",
+        "name": "test2",
         "description": "This is your first repository",
         "homepage": "https://github.com",
         "private": False,
@@ -18,11 +19,23 @@ if __name__=="__main__":
         "has_projects": True,
         "has_wiki": True
 }
-    x = Github(token='51e8340c7fd9b47d02bb26cb7d44698de0f658f5').repo
+    x = Github(token='04c6afc4e571e34730940c386861dc71ced2889b').repo
     # y = x.crete_response(json=data)
     # print(y.status_code)
     # print(x.get_list())
-    z = x.crete_owner_respose(org='yuyuyuyushui11', json=data)
-    print(z.status_code)
-    t = x.get_owner_respose('yuyuyuyushui', 'github')
-    print(t.url)
+    # z = x.crete_organization_repositories(org='yuyuyuyushui11', json=data)
+    # print(z.status_code)
+    # t = x.Get('yuyuyuyushui', 'github')
+    # print(t.url)
+    paragram = {
+        "visibility":"all"
+
+    }
+    # respose = x.list_organization_repositories('yuyuyuyushuiorg')
+    # print(respose.text)
+    # respose2 = x.list_all_public_repositories()
+    # print(respose2.text)
+    respose3 = x.Get('zhangting85','Hello-World')
+    print(respose3.text)
+    for i in json.loads(respose3.text):
+       print(i['name'])
